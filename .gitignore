@@ -9,6 +9,5 @@ backend/**/*.json
 Unlearn-Saliency/
 Unlearning-inversion-attacks/
 d3ex/
-static/
 data/
 attack/
