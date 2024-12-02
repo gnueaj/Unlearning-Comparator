@@ -89,9 +89,6 @@ importers:
       d3:
         specifier: ^7.9.0
         version: 7.9.0
-      gh-pages:
-        specifier: ^6.2.0
-        version: 6.2.0
       lucide-react:
         specifier: ^0.438.0
         version: 0.438.0(react@18.3.1)
@@ -125,6 +122,10 @@ importers:
       web-vitals:
         specifier: ^2.1.4
         version: 2.1.4
+    devDependencies:
+      gh-pages:
+        specifier: ^6.2.0
+        version: 6.2.0
 
 packages:
 

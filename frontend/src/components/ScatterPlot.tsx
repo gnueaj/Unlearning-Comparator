@@ -374,7 +374,7 @@ const ScatterPlot = forwardRef(
             <EmbeddingTooltip
               width={CONFIG.tooltipXSize}
               height={CONFIG.tooltipYSize}
-              imageUrl={`/cifar10_images/${d[4]}.png`}
+              imageUrl={`${process.env.PUBLIC_URL}/cifar10_images/${d[4]}.png`}
               data={d}
               barChartData={barChartData}
               forgetClass={forgetClass!}

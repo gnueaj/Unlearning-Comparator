@@ -64,7 +64,7 @@ export default function Core({
             }`}
           >
             <img
-              src="/hacker.png"
+              src={process.env.PUBLIC_URL + "/hacker.png"}
               alt="Attack logo img"
               className={`w-4 ${isEmbeddingMode && "opacity-40"}`}
             />
