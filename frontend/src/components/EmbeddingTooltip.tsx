@@ -52,7 +52,9 @@ export default React.memo(function EmbeddingTooltip({
   const legendRectColor = d3.schemeTableau10[0];
 
   const groundTruthIdx = Number(data[2]);
-  const predictionIdx = Number(data[3]);
+  const predictionIdx = barChartData.baseline.reduce((maxObj, currentObj) =>
+    currentObj.value > maxObj.value ? currentObj : maxObj
+  ).class;
 
   const groundTruth = forgetClassNames[groundTruthIdx];
   const baselinePrediction = forgetClassNames[predictionIdx];
