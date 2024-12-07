@@ -49,7 +49,7 @@ export default React.memo(function EmbeddingTooltip({
 }: Props) {
   const svgRef = useRef(null);
 
-  const legendRectColor = d3.schemeTableau10[0];
+  const legendRectColor = "#898989";
 
   const groundTruthIdx = Number(data[2]);
   const predictionIdx = barChartData.baseline.reduce((maxObj, currentObj) =>
@@ -119,7 +119,7 @@ export default React.memo(function EmbeddingTooltip({
       .attr("stroke", legendRectColor)
       .attr("stroke-width", 2);
 
-    const legend = svg
+    const baselineLegend = svg
       .append("g")
       .attr("class", "legend")
       .attr(
@@ -127,13 +127,14 @@ export default React.memo(function EmbeddingTooltip({
         `translate(${width - margin.right - LEGEND_X_OFFSET}, 1)`
       );
 
-    legend
+    baselineLegend
       .append("rect")
       .attr("width", LEGEND_RECT_SIZE)
       .attr("height", LEGEND_RECT_SIZE)
-      .attr("fill", legendRectColor);
+      .attr("fill", legendRectColor)
+      .attr("stroke", isBaseline ? BLACK : "none");
 
-    legend
+    baselineLegend
       .append("text")
       .attr("x", LEGEND_X)
       .attr("y", LEGEND_Y)
@@ -141,7 +142,7 @@ export default React.memo(function EmbeddingTooltip({
       .style("font-size", LEGEND_FONT_SIZE)
       .style("font-family", ROBOTO_CONDENSED);
 
-    const comparisonLegend = legend
+    const comparisonLegend = baselineLegend
       .append("g")
       .attr("transform", `translate(${LEGEND_GAP}, 0)`);
 
@@ -155,7 +156,8 @@ export default React.memo(function EmbeddingTooltip({
       .append("rect")
       .attr("width", LEGEND_RECT_SIZE)
       .attr("height", LEGEND_RECT_SIZE)
-      .attr("fill", "url(#stripe-legend)");
+      .attr("fill", "url(#stripe-legend)")
+      .attr("stroke", !isBaseline ? BLACK : "none");
 
     comparisonLegend
       .append("text")
