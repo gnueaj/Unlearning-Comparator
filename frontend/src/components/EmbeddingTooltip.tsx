@@ -23,6 +23,7 @@ const TICK_FONT_SIZE = "10px";
 const TICK_FONT_WEIGHT = 300;
 const ROBOTO_CONDENSED = "Roboto Condensed";
 const LEGEND_RECT_SIZE = 8;
+const LEGEND_RECT_COLOR = "#898989";
 const margin = { top: 14, right: 25, bottom: 30, left: 70 };
 
 interface Props {
@@ -48,8 +49,6 @@ export default React.memo(function EmbeddingTooltip({
   isBaseline,
 }: Props) {
   const svgRef = useRef(null);
-
-  const legendRectColor = "#898989";
 
   const groundTruthIdx = Number(data[2]);
   const predictionIdx = barChartData.baseline.reduce((maxObj, currentObj) =>
@@ -116,7 +115,7 @@ export default React.memo(function EmbeddingTooltip({
       .attr("y1", 0)
       .attr("x2", 0)
       .attr("y2", 3)
-      .attr("stroke", legendRectColor)
+      .attr("stroke", LEGEND_RECT_COLOR)
       .attr("stroke-width", 2);
 
     const baselineLegend = svg
@@ -131,7 +130,7 @@ export default React.memo(function EmbeddingTooltip({
       .append("rect")
       .attr("width", LEGEND_RECT_SIZE)
       .attr("height", LEGEND_RECT_SIZE)
-      .attr("fill", legendRectColor)
+      .attr("fill", LEGEND_RECT_COLOR)
       .attr("stroke", isBaseline ? BLACK : "none");
 
     baselineLegend
@@ -150,7 +149,7 @@ export default React.memo(function EmbeddingTooltip({
       .append("rect")
       .attr("width", LEGEND_RECT_SIZE)
       .attr("height", LEGEND_RECT_SIZE)
-      .attr("fill", legendRectColor);
+      .attr("fill", LEGEND_RECT_COLOR);
 
     comparisonLegend
       .append("rect")
@@ -271,7 +270,7 @@ export default React.memo(function EmbeddingTooltip({
         const classIndex = forgetClassNames.indexOf(d);
         return classIndex === forgetClass ? `${d} (X)` : d;
       });
-  }, [barChartData, forgetClass, isBaseline, legendRectColor]);
+  }, [barChartData, forgetClass, isBaseline]);
 
   return (
     <div
