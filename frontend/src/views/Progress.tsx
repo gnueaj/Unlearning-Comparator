@@ -159,8 +159,8 @@ export default function Progress({
 
   return (
     <section
-      style={{ width, height }}
-      className="p-1 relative border border-t-0"
+      style={{ width: `${width}vw`, height }}
+      className="p-1 relative border border-t-0 "
     >
       <div className="flex items-center gap-1">
         <VitalIcon />
@@ -194,7 +194,7 @@ export default function Progress({
             return (
               <StepperItem
                 key={idx}
-                className="relative flex w-full items-start gap-2"
+                className="relative flex w-full items-start gap-1.5"
               >
                 {isNotLastStep && (
                   <StepperSeparator className="absolute left-[15px] top-6 block h-[calc(100%)] w-0.5 shrink-0 rounded-full bg-muted group-data-[state=completed]:bg-primary">

@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from "./UI/select";
 
-export default function Header() {
+export default function Header({ distance }: { distance: number }) {
   const {
     forgetClass,
     selectedForgetClasses,
@@ -110,7 +110,7 @@ export default function Header() {
   };
 
   return (
-    <div className="w-[1805px] text-white bg-black h-12 flex justify-between items-center px-4 relative">
+    <div className="w-full text-white bg-black h-12 flex justify-between items-center px-4 relative">
       <div>
         <div className="flex items-center relative">
           <div className="flex items-center">
@@ -232,7 +232,10 @@ export default function Header() {
         onClick={handleGithubIconClick}
         className="w-7 h-7 cursor-pointer"
       />
-      <div className="flex absolute right-[363px] bottom-1 text-[13px]">
+      <div
+        className="flex absolute bottom-1 text-[13px]"
+        style={{ left: `${distance}%` }}
+      >
         <div className="flex flex-col mr-10">
           <span className="text-[10px] text-gray-300">Dataset</span>
           <span className="text-xs font-semibold -mt-[3px]">CIFAR-10</span>

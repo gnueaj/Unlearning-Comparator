@@ -53,7 +53,7 @@ export default function Accuracies({
 
   return (
     <section
-      style={{ width, height }}
+      style={{ width: `${width}vw`, height }}
       className="p-1 flex flex-col border border-t-0 relative"
     >
       <div className="flex items-center">

@@ -236,7 +236,6 @@ const ScatterPlot = forwardRef(
       };
 
       const handleMouseUp = () => {
-        console.log("up!");
         d3.select(svg).style("cursor", "grab");
       };
 
@@ -744,7 +743,7 @@ const ScatterPlot = forwardRef(
             {mode} {idExist ? `(${id})` : ""}
           </span>
         </div>
-        <div className="w-[638px] h-[607px] flex flex-col justify-center items-center">
+        <div className="w-full h-[607px] flex flex-col justify-center items-center">
           <div
             ref={containerRef}
             style={{

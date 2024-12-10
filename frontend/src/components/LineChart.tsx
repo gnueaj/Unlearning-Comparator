@@ -108,7 +108,10 @@ export default function MyLineChart({ dataset }: { dataset: string }) {
       <p className="text-[15px] text-center relative top-1 mb-1.5">
         Per-layer Similarity Before/After Unlearning
       </p>
-      <ChartContainer className="w-[480px] h-[250px]" config={chartConfig}>
+      <ChartContainer
+        className="w-[calc(100%-13px)] h-[250px]"
+        config={chartConfig}
+      >
         <LineChart
           accessibilityLayer
           data={ckaData}

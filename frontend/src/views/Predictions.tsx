@@ -34,7 +34,7 @@ export default function Predictions({
 
   return (
     <section
-      style={{ width, height }}
+      style={{ width: `${width}vw`, height }}
       className="p-1 flex flex-col border transition-all z-10 relative"
     >
       <div className="flex justify-between">
@@ -50,13 +50,18 @@ export default function Predictions({
         !allSelected ? (
           <Indicator about="BaselineComparison" />
         ) : (
-          <div className="flex items-center relative ml-1.5 top-5">
+          <div
+            className={`flex items-center relative top-5 ${
+              window.innerWidth < 1800 ? "" : "ml-1.5"
+            }`}
+          >
             <BubbleChart
               mode="Baseline"
               datasetMode={datasetMode}
               hoveredY={hoveredY}
               onHover={(y) => setHoveredY(y)}
               onHoverEnd={() => setHoveredY(null)}
+              width={width * 9}
             />
             <BubbleChart
               mode="Comparison"
@@ -65,6 +70,7 @@ export default function Predictions({
               hoveredY={hoveredY}
               onHover={(y) => setHoveredY(y)}
               onHoverEnd={() => setHoveredY(null)}
+              width={width * 9}
             />
           </div>
         )

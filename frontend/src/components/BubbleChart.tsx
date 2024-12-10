@@ -12,7 +12,6 @@ import { ExperimentsContext } from "../store/experiments-context";
 import { extractBubbleChartData } from "../utils/data/experiments";
 import { forgetClassNames } from "../constants/forgetClassNames";
 
-const TOTAL_SIZE = 255;
 const MIN_BUBBLE_SIZE = 1;
 const MAX_BUBBLE_SIZE = 90;
 const BASIC_FONT_WEIGHT = 300;
@@ -26,6 +25,7 @@ interface Props {
   onHover: (y: number) => void;
   onHoverEnd: () => void;
   showYAxis?: boolean;
+  width?: number;
 }
 
 export default function BubbleChart({
@@ -35,6 +35,7 @@ export default function BubbleChart({
   onHover,
   onHoverEnd,
   showYAxis = true,
+  width = 255,
 }: Props) {
   const { baseline, comparison } = useContext(BaselineComparisonContext);
   const { forgetClass } = useContext(ForgetClassContext);
@@ -83,21 +84,21 @@ export default function BubbleChart({
       bottom: 44,
       left: 64,
     };
-    const width = TOTAL_SIZE - margin.left - margin.right;
-    const height = TOTAL_SIZE - margin.top - margin.bottom;
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = width - margin.top - margin.bottom;
 
     d3.select(svgRef.current).selectAll("*").remove();
 
     const svg = d3
       .select(svgRef.current)
-      .attr("width", TOTAL_SIZE)
-      .attr("height", TOTAL_SIZE)
+      .attr("width", width)
+      .attr("height", width)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const xScale = d3.scaleLinear().domain([-0.5, 9.5]).range([0, width]);
+    const xScale = d3.scaleLinear().domain([-0.5, 9.5]).range([0, chartWidth]);
 
-    const yScale = d3.scaleLinear().domain([-0.5, 9.5]).range([0, height]);
+    const yScale = d3.scaleLinear().domain([-0.5, 9.5]).range([0, chartHeight]);
 
     const colorScale = d3
       .scaleSequential()
@@ -129,7 +130,7 @@ export default function BubbleChart({
     svg
       .append("g")
       .attr("class", "x-axis")
-      .attr("transform", `translate(0,${height})`)
+      .attr("transform", `translate(0,${chartHeight})`)
       .call(xAxis)
       .call((g) => {
         g.select(".domain").attr("stroke", "#000").attr("stroke-width", 1);
@@ -243,6 +244,7 @@ export default function BubbleChart({
     hoveredY,
     onHover,
     showYAxis,
+    width,
   ]);
 
   useEffect(() => {
@@ -270,7 +272,11 @@ export default function BubbleChart({
   return (
     <div
       className={`flex flex-col items-center relative ${
-        showYAxis ? "z-10" : "right-[48px] z-0"
+        showYAxis
+          ? "z-10"
+          : window.innerWidth < 1800
+          ? "right-[54px] z-0"
+          : "right-[48px] z-0"
       }`}
     >
       <div

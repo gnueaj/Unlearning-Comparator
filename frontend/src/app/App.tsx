@@ -9,10 +9,12 @@ import Predictions from "../views/Predictions";
 import Correlations from "../views/Correlations";
 import { ExperimentsContext } from "../store/experiments-context";
 
-const CORE_WIDTH = 1312;
-const EXPERIMENTS_WIDTH = 1032;
-const ANALYSIS_VIEW_WIDTH = 493;
-const PROGRESS_WIDTH = CORE_WIDTH - EXPERIMENTS_WIDTH;
+const HUNDRED = 100;
+const TOTAL_WIDTH = 1805;
+const CORE_WIDTH = (1312 / TOTAL_WIDTH) * HUNDRED;
+const EXPERIMENTS_WIDTH = (1032 / TOTAL_WIDTH) * HUNDRED;
+const ANALYSIS_VIEW_WIDTH = (493 / TOTAL_WIDTH) * HUNDRED;
+const PROGRESS_WIDTH = (280 / TOTAL_WIDTH) * HUNDRED;
 
 const CORE_HEIGHT = 677;
 const EXPERIMENTS_PROGRESS_HEIGHT = 234;
@@ -36,8 +38,8 @@ export default function App() {
   if (isPageLoading) return <div></div>;
 
   return (
-    <section className="relative">
-      <Header />
+    <section className="w-screen relative">
+      <Header distance={CORE_WIDTH} />
       {!isExperimentLoading && (
         <div className="flex items-center">
           <div>

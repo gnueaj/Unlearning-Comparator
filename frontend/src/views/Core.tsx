@@ -40,7 +40,10 @@ export default function Core({
   const isEmbeddingMode = displayMode === EMBEDDINGS;
 
   return (
-    <section style={{ width, height }} className="p-1 border border-l-0">
+    <section
+      style={{ width: `${width}vw`, height }}
+      className="w-full p-1 border border-l-0"
+    >
       <div className="flex justify-between items-center">
         <div className="flex items-center mb-0.5">
           <div
@@ -95,17 +98,24 @@ function UnderLine() {
 }
 
 function EmbeddingLegend() {
+  const fontSize = window.innerWidth < 1800 ? "text-xs" : "text-sm";
+
   return (
-    <div className="flex items-center border border-b-white rounded-t-[6px] px-2 py-1 relative top-[2px] text-sm z-10">
+    <div
+      className={
+        "flex items-center border border-b-white rounded-t-[6px] px-2 py-1 relative top-[2px] z-10 " +
+        fontSize
+      }
+    >
       <div className="flex items-center mr-5">
         <span className="font-medium mr-2.5">Data Type</span>
         <ul className="flex items-center gap-2.5">
           <li className="flex items-center">
-            <CircleIcon className="w-2 h-2 mr-1.5 text-[#4f5562]" />
+            <CircleIcon className="w-2 h-2 mr-1 text-[#4f5562]" />
             <span>Remaining Data</span>
           </li>
           <li className="flex items-center">
-            <MultiplicationSignIcon className="text-[#4f5562] mr-1.5" />
+            <MultiplicationSignIcon className="text-[#4f5562] mr-1" />
             <span>Forgetting Target</span>
           </li>
         </ul>

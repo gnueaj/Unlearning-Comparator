@@ -15,7 +15,9 @@ export const getProgressSteps = (
     {
       step: 1,
       title: "Unlearn",
-      description: `Method: **${method ? method : "-"}** | Epochs: **${
+      description: `Method: **${
+        method ? method.replace("-", "") : "-"
+      }** | Epochs: **${
         !completedSteps.includes(1)
           ? "-"
           : status.current_epoch + "/" + status.total_epochs

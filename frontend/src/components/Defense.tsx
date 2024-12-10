@@ -30,8 +30,6 @@ export default function Defense() {
     const configState = Object.fromEntries(
       fd.entries()
     ) as unknown as DefenseConfigurationData;
-
-    console.log(configState);
   };
 
   return (

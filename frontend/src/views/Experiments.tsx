@@ -53,7 +53,7 @@ export default function Experiments({
 
   return (
     <section
-      style={{ width, height }}
+      style={{ width: `${width}vw`, height }}
       className="p-1 relative border border-t-0 border-l-0"
     >
       <div className="flex justify-between items-center mb-1">

@@ -121,29 +121,7 @@ export default function Embeddings({ height }: { height: number }) {
       className="w-full flex justify-start px-1.5 items-center border-[1px] border-solid rounded-[6px] rounded-tr-none relative"
     >
       <ConnectionLineWrapper positionRef={positionRef} />
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>
-          <HelpCircleIcon className="z-10 w-[18px] h-[18px] absolute left-7 top-1.5 cursor-pointer" />
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[320px] p-2 gap-1.5">
-          <DialogHeader>
-            <DialogTitle>Embeddings</DialogTitle>
-            <DialogDescription></DialogDescription>
-          </DialogHeader>
-          <p className="text-sm">
-            The scatter plots present two-dimensional mapping of 512-dimensional
-            penultimate layer activations extracted from 2,000 data points in
-            the Training Dataset, utilizing Uniform Manifold Approximation and
-            Projection for Dimension Reduction (UMAP) for dimensionality
-            reduction.
-          </p>
-          <DialogFooter>
-            <p className="text-xs text-muted-foreground">
-              Click anywhere to dismiss
-            </p>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <QuestionMark open={open} setOpen={setOpen} />
       <ScatterPlot
         mode="Baseline"
         height={height}
@@ -164,3 +142,37 @@ export default function Embeddings({ height }: { height: number }) {
     </div>
   );
 }
+
+const QuestionMark = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}) => {
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger>
+        <HelpCircleIcon className="z-10 w-[18px] h-[18px] absolute left-7 top-1.5 cursor-pointer" />
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[320px] p-2 gap-1.5">
+        <DialogHeader>
+          <DialogTitle>Embeddings</DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
+        <p className="text-sm">
+          The scatter plots present two-dimensional mapping of 512-dimensional
+          penultimate layer activations extracted from 2,000 data points in the
+          Training Dataset, utilizing Uniform Manifold Approximation and
+          Projection for Dimension Reduction (UMAP) for dimensionality
+          reduction.
+        </p>
+        <DialogFooter>
+          <p className="text-xs text-muted-foreground">
+            Click anywhere to dismiss
+          </p>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};

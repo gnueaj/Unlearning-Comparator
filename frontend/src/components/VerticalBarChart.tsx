@@ -144,6 +144,11 @@ export default function VerticalBarChart({
   }, [gapData, forgetClass]);
   const remainGapAvg = Number(remainGapAvgValue.toFixed(3));
 
+  const yAxisShowingWidth =
+    window.innerWidth < 1800 ? "w-[250px]" : "w-[265px]";
+  const yAxisNotShowingWidth =
+    window.innerWidth < 1800 ? "w-[190px]" : "w-[205px]";
+
   return (
     <div className="flex flex-col justify-center items-center relative">
       <span
@@ -155,7 +160,9 @@ export default function VerticalBarChart({
       </span>
       <ChartContainer
         config={chartConfig}
-        className={`${showYAxis ? "w-[265px]" : "w-[205px]"} h-[230px]`}
+        className={`${
+          showYAxis ? yAxisShowingWidth : yAxisNotShowingWidth
+        } h-[230px]`}
       >
         <BarChart
           accessibilityLayer
