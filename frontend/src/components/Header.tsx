@@ -1,10 +1,10 @@
 import { useContext, useState, useMemo } from "react";
 
+import { loadExperimentData } from "../constants/allData";
 import { forgetClassNames } from "../constants/forgetClassNames";
 import { ForgetClassContext } from "../store/forget-class-context";
 import { Experiments } from "../types/experiments-context";
 import { ExperimentsContext } from "../store/experiments-context";
-import { fetchAllExperimentsData } from "../utils/api/unlearning";
 import { Label } from "./UI/label";
 import Button from "./Button";
 import {
@@ -52,13 +52,12 @@ export default function Header() {
   const [targetFC, setTargetFC] = useState(() => unselectForgetClasses[0]);
   const [open, setOpen] = useState(() => selectedForgetClasses.length === 0);
 
-  const fetchAndSaveExperiments = async (forgetClass: string) => {
-    const classIndex = forgetClassNames.indexOf(forgetClass);
+  const fetchAndSaveExperiments = async (targetClass: string) => {
+    const forgetClass = forgetClassNames.indexOf(targetClass);
     setIsExperimentsLoading(true);
     try {
-      const allData: Experiments = await fetchAllExperimentsData(classIndex);
-      if ("detail" in allData) saveExperiments({});
-      else saveExperiments(allData);
+      const data: Experiments = await loadExperimentData(forgetClass);
+      saveExperiments(data);
     } finally {
       setIsExperimentsLoading(false);
     }

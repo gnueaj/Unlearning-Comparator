@@ -10,12 +10,9 @@ import {
   CellContext,
 } from "@tanstack/react-table";
 
-import { fetchAllExperimentsData } from "../utils/api/unlearning";
-import { deleteRow, downloadJSON, downloadPTH } from "../utils/api/dataTable";
 import { ForgetClassContext } from "../store/forget-class-context";
 import { calculatePerformanceMetrics } from "../utils/data/experiments";
 import { ExperimentData } from "../types/data";
-import { Experiments } from "../types/experiments-context";
 import { hexToRgba } from "../utils/data/colors";
 import { ScrollArea } from "./UI/scroll-area";
 import { ExperimentsContext } from "../store/experiments-context";
@@ -23,12 +20,7 @@ import { BaselineComparisonContext } from "../store/baseline-comparison-context"
 import { RadioGroup, RadioGroupItem } from "./UI/radio-group";
 import { cn } from "../utils/common/styles";
 import { COLUMN_WIDTHS } from "./Columns";
-import {
-  ContextMenu,
-  ContextMenuTrigger,
-  ContextMenuContent,
-  ContextMenuItem,
-} from "./UI/context-menu";
+import { ContextMenu, ContextMenuTrigger } from "./UI/context-menu";
 import {
   Table,
   TableBody,
@@ -54,8 +46,7 @@ interface Props {
 
 export default function DataTable({ columns }: Props) {
   const { forgetClass } = useContext(ForgetClassContext);
-  const { experiments, saveExperiments, setIsExperimentsLoading } =
-    useContext(ExperimentsContext);
+  const { experiments } = useContext(ExperimentsContext);
   const { baseline, comparison, saveBaseline, saveComparison } = useContext(
     BaselineComparisonContext
   );
@@ -203,53 +194,6 @@ export default function DataTable({ columns }: Props) {
     tableData,
   ]);
 
-  const handleDeleteRow = async (id: string) => {
-    try {
-      await deleteRow(forgetClass as number, id);
-      setIsExperimentsLoading(true);
-      const allData: Experiments = await fetchAllExperimentsData(
-        forgetClass as number
-      );
-      if ("detail" in allData) saveExperiments({});
-      else saveExperiments(allData);
-    } catch (error) {
-      console.error("Failed to delete the row:", error);
-    } finally {
-      setIsExperimentsLoading(false);
-    }
-  };
-
-  const handleDownloadJSON = async (id: string) => {
-    try {
-      const json = await downloadJSON(forgetClass as number, id);
-
-      const jsonString = JSON.stringify(json, null, 2);
-
-      const blob = new Blob([jsonString], { type: "application/json" });
-
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${id}.json`;
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Failed to download the JSON file:", error);
-    }
-  };
-
-  const handleDownloadPTH = async (id: string) => {
-    try {
-      await downloadPTH(forgetClass as number, id);
-    } catch (error) {
-      console.error("Failed to download the PTH file:", error);
-    }
-  };
-
   return (
     <div className="w-full h-[196px]">
       <div className="relative w-full">
@@ -369,26 +313,6 @@ export default function DataTable({ columns }: Props) {
                         })}
                       </TableRow>
                     </ContextMenuTrigger>
-                    <ContextMenuContent>
-                      {!row.id.startsWith("000") &&
-                        !row.id.startsWith("a00") && (
-                          <ContextMenuItem
-                            onClick={() => handleDeleteRow(row.id)}
-                          >
-                            Delete
-                          </ContextMenuItem>
-                        )}
-                      <ContextMenuItem
-                        onClick={() => handleDownloadJSON(row.id)}
-                      >
-                        Download JSON
-                      </ContextMenuItem>
-                      <ContextMenuItem
-                        onClick={() => handleDownloadPTH(row.id)}
-                      >
-                        Download PTH
-                      </ContextMenuItem>
-                    </ContextMenuContent>
                   </ContextMenu>
                 ))
               ) : (
