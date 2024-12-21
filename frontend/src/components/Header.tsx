@@ -231,7 +231,7 @@ export default function Header() {
         onClick={handleGithubIconClick}
         className="w-7 h-7 cursor-pointer"
       />
-      <div className="flex absolute right-[363px] bottom-1 text-[13px]">
+      <div className="flex absolute right-[362px] bottom-1 text-[13px]">
         <div className="flex flex-col mr-10">
           <span className="text-[10px] text-gray-300">Dataset</span>
           <span className="text-xs font-semibold -mt-[3px]">CIFAR-10</span>
