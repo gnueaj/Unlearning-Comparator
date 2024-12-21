@@ -24,11 +24,16 @@ const CORRELATIONS_HEIGHT =
   ACCURACIES_HEIGHT -
   PREDICTIONS_HEIGHT;
 
-
 export function calculateZoom() {
   const screenWidth = window.innerWidth;
   const appWidth = 1805;
-  return screenWidth / appWidth;
+  const hasVerticalScroll =
+    document.documentElement.scrollHeight > window.innerHeight;
+  const scrollbarWidth = hasVerticalScroll
+    ? window.innerWidth - document.documentElement.clientWidth
+    : 0;
+
+  return (screenWidth - scrollbarWidth) / appWidth;
 }
 
 export default function App() {
